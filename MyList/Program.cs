@@ -92,7 +92,35 @@ namespace MyList
             myIntList.Remove(5);
 
             PrintArray(myIntList);
-            
+
+            Console.WriteLine(Environment.NewLine + "-------*Random strings*-------\n");
+
+            Console.WriteLine($"{(int) 'z'}");
+
+            var rand = new Random();
+
+            var newList = new MyList<string>();
+
+            try
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    var randomNumber = rand.Next(0, 30);
+                    var newString = string.Empty;
+
+                    for (int j = 0; j < randomNumber; j++)
+                        newString += $"{(char) rand.Next(65, 90)}" + $"{(char) rand.Next(96, 122)}";
+
+                    newList.Add(newString);
+                }
+
+                PrintArray(newList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
             Console.ReadLine();
         }
@@ -100,7 +128,12 @@ namespace MyList
         private static void PrintArray<T>(MyList<T> array)
         {
             for (var i = 0; i < array.Count; i++)
+            {
+                if(i == array.Count - 1)
+                    Console.WriteLine($"And the last one: {array[i]}");
+
                 Console.WriteLine(array[i]);
+            }
         }
     }
 }
