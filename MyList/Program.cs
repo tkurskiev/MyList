@@ -45,17 +45,18 @@ namespace MyList
 
                 var newArray = new T[Count];
 
-                for (int i = 0; i < Count; i++)
+                for (var i = 0; i < Count; i++)
                 {
-                    if (Equals(_tArray[i], item) && i < Count - 1)
+                    if (Equals(_tArray[i], item) && i < Count)
                     {
                         _tArray[i] = _tArray[i + 1];
                         _tArray[i + 1] = item;
                     }
 
                     newArray[i] = _tArray[i];
-                    _tArray = newArray;
                 }
+
+                _tArray = newArray;
             }
 
             public void Dispose()
@@ -85,17 +86,24 @@ namespace MyList
             myIntList.Add(5);
             myIntList.Add(10);
             myIntList[myIntList.Count - 1] = 22;
+            myIntList.Add(120);
+            myIntList.Add(55);
 
 
             PrintArray(myIntList);
 
-            myIntList.Remove(5);
+            myIntList.Remove(120);
 
+            Console.WriteLine();
             PrintArray(myIntList);
+
+            #region Commented out
+
+            /*
 
             Console.WriteLine(Environment.NewLine + "-------*Random strings*-------\n");
 
-            Console.WriteLine($"{(int) 'z'}");
+            Console.WriteLine($"{(int)'z'}");
 
             var rand = new Random();
 
@@ -109,7 +117,7 @@ namespace MyList
                     var newString = string.Empty;
 
                     for (int j = 0; j < randomNumber; j++)
-                        newString += $"{(char) rand.Next(65, 90)}" + $"{(char) rand.Next(96, 122)}";
+                        newString += $"{(char)rand.Next(65, 90)}" + $"{(char)rand.Next(96, 122)}";
 
                     newList.Add(newString);
                 }
@@ -120,19 +128,27 @@ namespace MyList
             {
                 Console.WriteLine(e);
                 throw;
-            }
+            }            
+
+            */
+
+            #endregion
 
             Console.ReadLine();
+
         }
 
         private static void PrintArray<T>(MyList<T> array)
         {
             for (var i = 0; i < array.Count; i++)
             {
-                if(i == array.Count - 1)
-                    Console.WriteLine($"And the last one: {array[i]}");
+                if (i == array.Count - 1)
+                {
+                    Console.WriteLine($"And the last one (MyList[{i}]): {array[i]}");
+                    continue;
+                }
 
-                Console.WriteLine(array[i]);
+                Console.WriteLine($"MyList[{i}] = {array[i]}");
             }
         }
     }
